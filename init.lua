@@ -18,10 +18,22 @@ vim.g.mapleader = " "
 
 local plugins = {
 	{ "neanias/everforest-nvim", priority = 1000 },
-	{ "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" }}
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" }
+	}
 }
 
 require("lazy").setup(plugins)
+
+local setmap = vim.keymap.set
+
+-- telescope keymapping
+local tb = require('telescope.builtin')
+setmap('n', '<leader>ff', tb.find_files, {})
+setmap('n', '<leader>fg', tb.live_grep, {})
+setmap('n', '<leader>fb', tb.buffers, {})
+setmap('n', '<leader>fh', tb.help_tags, {})
 
 vim.cmd([[
 	set noexpandtab relativenumber
