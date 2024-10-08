@@ -1,14 +1,3 @@
-vim.cmd([[
-	set noexpandtab number
-	set tabstop=2 softtabstop=2 shiftwidth=2
-	set hidden noswapfile nobackup
-	set fillchars=eob:\ 
-	set nowrap
-
-	set background=dark
-	colorscheme sorbet
-]])
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -26,15 +15,21 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 
-require("lazy").setup(
-	{
-		"Tsuzat/NeoSolarized.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.cmd [[ colorscheme NeoSolarized ]]
-		end
-	}
-)
+local plugins = {
+	{ "neanias/everforest-nvim", priority = 1000 },
+	{ "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" }}
+}
+
+require("lazy").setup(plugins)
+
+vim.cmd([[
+	set noexpandtab relativenumber
+	set tabstop=2 softtabstop=2 shiftwidth=2
+	set hidden noswapfile nobackup
+	set fillchars=eob:\ 
+	set nowrap
+
+	set background=dark termguicolors
+	colorscheme everforest
+]])
